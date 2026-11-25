@@ -6,6 +6,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -37,3 +40,13 @@ jobs:
         with:
           name: MCLauncher-apk
           path: target/debug/apk/*.apk
+
+      - name: Publish to Releases
+        if: github.event_name != 'pull_request'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: MC Launcher (latest build)
+          prerelease: true
+          body: "Debug APK built automatically from the latest commit on main."
+          files: target/debug/apk/*.apk
