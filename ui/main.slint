@@ -1,0 +1,69 @@
+import { Button, ComboBox, LineEdit, ProgressIndicator } from "std-widgets.slint";
+
+export component AppWindow inherits Window {
+    title: "MC Launcher";
+    background: #14161c;
+
+    in-out property <string> username;
+    in property <[string]> versions;
+    in-out property <string> selected-version;
+    in property <float> progress;
+    in property <string> status: "Ready";
+    in property <bool> busy;
+
+    callback play(string, string);
+
+    VerticalLayout {
+        padding: 20px;
+        spacing: 14px;
+        alignment: start;
+
+        Text {
+            text: "MC Launcher";
+            font-size: 28px;
+            font-weight: 700;
+            color: #7ee787;
+            horizontal-alignment: center;
+        }
+
+        Text {
+            text: "Offline account";
+            color: #9aa4b2;
+        }
+        LineEdit {
+            text <=> root.username;
+            placeholder-text: "Player name (3-16 letters/digits/_)";
+            enabled: !root.busy;
+        }
+
+        Text {
+            text: "Minecraft version";
+            color: #9aa4b2;
+        }
+        ComboBox {
+            model: root.versions;
+            current-value <=> root.selected-version;
+            enabled: !root.busy;
+        }
+
+        ProgressIndicator {
+            progress: root.progress;
+            visible: root.busy;
+        }
+
+        Text {
+            text: root.status;
+            color: #cdd6e3;
+            wrap: word-wrap;
+        }
+
+        Button {
+            text: root.busy ? "Working..." : "Install & Play";
+            primary: true;
+            enabled: !root.busy;
+            clicked => {
+                root.play(root.selected-version, root.username);
+            }
+        }
+    }
+}
