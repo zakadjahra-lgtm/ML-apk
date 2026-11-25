@@ -32,8 +32,8 @@ jobs:
       - name: Build APK
         env:
           ANDROID_NDK_HOME: ${{ env.ANDROID_NDK_LATEST_HOME }}
-        run: cargo apk build --release --lib --target aarch64-linux-android
+        run: cargo apk build --lib --target aarch64-linux-android
       - uses: actions/upload-artifact@v4
         with:
           name: MCLauncher-apk
-          path: target/release/apk/*.apk
+          path: target/debug/apk/*.apk

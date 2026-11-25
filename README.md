@@ -31,9 +31,9 @@ cargo install cargo-apk
 export ANDROID_HOME=/path/to/android-sdk
 export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/<version>
 
-cargo apk build --release --lib --target aarch64-linux-android
+cargo apk build --lib --target aarch64-linux-android
 # أو للتثبيت المباشر على هاتف موصول:
-cargo apk run --release --lib --target aarch64-linux-android
+cargo apk run --lib --target aarch64-linux-android
 ```
 
 ## التجربة على الكمبيوتر
